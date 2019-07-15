@@ -45,13 +45,14 @@
         android:layout_marginLeft="160dp"/>
 
     <Button
+        android:id="@+id/view_selected_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/teams_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:paddingHorizontal="15dp"
-        android:background="@color/colorAccent"
+        android:background="#FF0000"
         android:text="@string/view_team" />
 
 </RelativeLayout>
