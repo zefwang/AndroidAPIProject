@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int CODE_GET_REQUEST = 1024;
     private static final int CODE_POST_REQUEST = 1025;
     private Spinner teamSpinner;
+    private Button viewTeam;
     List<String> teamNames;
+    JSONArray fullTeamInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,33 @@ public class MainActivity extends AppCompatActivity {
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS, null, CODE_GET_REQUEST);
         request.execute();
 
+        viewTeam = (Button) findViewById(R.id.view_selected_team);
+
+        viewTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String spinnerSelection = teamSpinner.getSelectedItem().toString();
+
+                Intent intent = new Intent(MainActivity.this, DisplayTeamActivity.class);
+                intent.putExtra("TEAM_INFO", findTeam(spinnerSelection));
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private String findTeam(String teamName){
+        for(int i = 0; i < fullTeamInfo.length(); i++){
+            try {
+                JSONObject obj = fullTeamInfo.getJSONObject(i);
+                if (obj.getString("name").equals(teamName)) {
+                    return obj.toString();
+                }
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 
     private void setTeamList(JSONArray teams) throws JSONException {
@@ -83,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(s);
                 System.out.println(object.toString());
-                //refreshing the documentList after every operation so we get an updated list
-                setTeamList(object.getJSONArray("teams"));
+                fullTeamInfo = object.getJSONArray("teams");
+                setTeamList(fullTeamInfo);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
