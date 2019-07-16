@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //inner class to perform network request extending an AsyncTask
-    private class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
+    class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
 
         //the url where we need to send the request
         String url;
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 JSONObject object = new JSONObject(s);
-                System.out.println(object.toString());
                 fullTeamInfo = object.getJSONArray("teams");
                 setTeamList(fullTeamInfo);
             } catch (JSONException e) {

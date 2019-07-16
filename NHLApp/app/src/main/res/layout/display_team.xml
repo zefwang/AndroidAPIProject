@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Team Name"
+        android:text="@string/placeholder_team_name"
         android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold" />
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/team_name"
         android:layout_centerHorizontal="true"
-        android:text="Team Division || Conference"
+        android:text="@string/placeholder_div_conf"
         android:textColor="#333333"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -30,8 +30,107 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/team_div_conf"
         android:layout_centerHorizontal="true"
-        android:text="Team Venue"
+        android:text="@string/placeholder_team_venue"
         android:textSize="30sp"
         android:textStyle="italic" />
+
+
+    <ScrollView
+        android:id="@+id/scrollRoster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/team_venue"
+        android:layout_marginTop="5dip"
+        android:scrollbarStyle="outsideInset"
+        android:fillViewport="true"
+        android:scrollbars="horizontal|vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:scrollbars="horizontal|vertical">
+
+            <TableLayout
+                android:id="@+id/rosterTable"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:id="@+id/rosterRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/playerNameCol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_roster_name"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/playerGP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_games_played"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/playerGoals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_goals"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/playerAssists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_assists"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/playerPoints"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_total_points"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/playerTOI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_toi"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
 </RelativeLayout>
