@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //inner class to perform network request extending an AsyncTask
-    class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
+    private class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
 
         //the url where we need to send the request
         String url;

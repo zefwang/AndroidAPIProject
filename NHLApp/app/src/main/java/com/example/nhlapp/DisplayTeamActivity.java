@@ -80,6 +80,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 JSONObject personObj = nameObj.getJSONObject("person");
                 String name = personObj.getString("fullName");
                 String playerID = personObj.getString("id");
+                System.out.println(playerID);
 
                 name_label.setId(100 + i);
                 name_label.setText(name);
@@ -88,21 +89,26 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
                 tRow.addView(name_label);
 
+
+                HashMap<String, String> params = new HashMap<>();
+                params.put("stats", "statsSingleSeason");
+                params.put("season", "20182019");
                 PerformNetworkRequest pnr = new PerformNetworkRequest("https://statsapi.web.nhl.com/api/v1/people/" + playerID
-                        + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
+                        + "/stats?", params, CODE_GET_REQUEST);
                 pnr.execute();
 
                 TextView gp_label = new TextView(this);
-                if (individualStats != null) {
-                    String gp = individualStats.getString("games");
-                    gp_label.setId(200 + i);
-                    gp_label.setText(gp);
-                    gp_label.setBackgroundResource(R.drawable.border);
-                    gp_label.setPadding(2, 0, 2, 0);
 
-                    tRow.addView(gp_label);
-                }
+                //TODO:
+                // Figure out why this isn't working
+                // Claims that individualStats is null but has been instantiated already?
+//                String gp = individualStats.getString("games");
+                gp_label.setId(200 + i);
+//                gp_label.setText(gp);
+                gp_label.setBackgroundResource(R.drawable.border);
+                gp_label.setPadding(2, 0, 2, 0);
 
+                tRow.addView(gp_label);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -150,12 +156,9 @@ public class DisplayTeamActivity extends AppCompatActivity {
                     fullRoster = roster.getJSONObject("roster").getJSONArray("roster");
                     setRoster(fullRoster);
                 } catch (JSONException e) {
-                }
-
-                try {
-                    individualStats = object.getJSONObject("stats").getJSONObject("splits").getJSONObject("stat");
-                    System.out.println(individualStats.toString());
-                } catch (JSONException e) {
+                    JSONObject stats = (JSONObject) object.getJSONArray("stats").get(0);
+                    stats = (JSONObject) stats.getJSONArray("splits").get(0);
+                    individualStats = stats.getJSONObject("stat");
                 }
 
             } catch (JSONException e) {
