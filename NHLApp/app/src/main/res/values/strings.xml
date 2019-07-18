@@ -8,9 +8,9 @@
     <string name="placeholder_team_name">Team Name</string>
     <string name="placeholder_team_venue">Team Venue</string>
     <string name="placeholder_roster_name">Player Name</string>
-    <string name="placeholder_games_played">Games Played</string>
+    <string name="placeholder_games_played">Games</string>
     <string name="placeholder_goals">Goals</string>
     <string name="placeholder_assists">Assists</string>
     <string name="placeholder_total_points">Points</string>
-    <string name="placeholder_toi">Average TOI</string>
+    <string name="placeholder_toi">Avg TOI</string>
 </resources>

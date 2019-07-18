@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/placeholder_team_name"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textStyle="bold" />
 
     <TextView
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/team_venue"
         android:layout_marginTop="5dip"
-        android:scrollbarStyle="outsideInset"
         android:fillViewport="true"
+        android:scrollbarStyle="outsideInset"
         android:scrollbars="horizontal|vertical">
 
         <HorizontalScrollView
@@ -72,7 +72,7 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_roster_name"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/playerGP"
@@ -83,7 +83,7 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_games_played"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/playerGoals"
@@ -94,7 +94,7 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_goals"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/playerAssists"
@@ -105,7 +105,7 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_assists"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/playerPoints"
@@ -116,7 +116,7 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_total_points"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/playerTOI"
@@ -127,10 +127,9 @@
                         android:paddingHorizontal="2.5dp"
                         android:text="@string/placeholder_toi"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
         </HorizontalScrollView>
     </ScrollView>
-
 </RelativeLayout>

@@ -20,14 +20,12 @@ import java.util.HashMap;
 
 public class DisplayTeamActivity extends AppCompatActivity {
     private static final int CODE_GET_REQUEST = 1024;
-    private static final int CODE_POST_REQUEST = 1025;
     JSONObject jsonObject;
     TextView teamName;
     TextView teamVenue;
     TextView teamDivConf;
     TableLayout teamRoster;
     JSONArray fullRoster;
-    boolean execIndividual;
     String playerGP, playerGoals, playerAssists, playerPoints, playerTOI;
 
     @Override
@@ -64,11 +62,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
     void setRoster(JSONArray teamRosterArray) {
         for (int i = 0; i < teamRosterArray.length(); i++) {
-            playerGP = "0";
-            playerGoals = "0";
-            playerAssists = "0";
-            playerPoints = "0";
-            playerTOI = "0";
 
             TableRow tRow = new TableRow(this);
             if (i % 2 != 0)
@@ -92,17 +85,14 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 name_label.setPadding(2, 0, 2, 0);
                 tRow.addView(name_label);
 
-
-                PerformNetworkRequest pnr = new PerformNetworkRequest("https://statsapi.web.nhl.com/api/v1/people/" + playerID
+                PerformNetworkRequest pnr = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID
                         + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
                 String result = pnr.execute().get();
 
                 parseIndividualData(result);
 
-                if (execIndividual) {
-                    tRow = this.addRow(i, tRow);
-                    System.out.println("Executed row properly");
-                }
+
+                tRow = this.addRow(i, tRow);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -116,22 +106,16 @@ public class DisplayTeamActivity extends AppCompatActivity {
         try {
             JSONObject object = new JSONObject(result);
             JSONObject stats = (JSONObject) object.getJSONArray("stats").get(0);
-            //System.out.println(stats.toString());
             stats = (JSONObject) stats.getJSONArray("splits").get(0);
-            //System.out.println(stats.toString());
             JSONObject individualStats = stats.getJSONObject("stat");
-            execIndividual = true;
             setPlayerInfo(individualStats);
         } catch (JSONException e) {
-            e.printStackTrace();
         }
-
     }
 
     private TableRow addRow(int id, TableRow tRow) {
         TextView gp_label = new TextView(this);
         gp_label.setId(200 + id);
-//                System.out.println("GP: " + playerGP);
         gp_label.setText(playerGP);
         gp_label.setBackgroundResource(R.drawable.border);
         gp_label.setPadding(2, 0, 2, 0);
@@ -140,7 +124,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
         TextView goals_label = new TextView(this);
         goals_label.setId(300 + id);
-//                System.out.println("Points: " + playerGoals);
         goals_label.setText(playerGoals);
         goals_label.setBackgroundResource(R.drawable.border);
         goals_label.setPadding(2, 0, 2, 0);
@@ -149,7 +132,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
         TextView assists_label = new TextView(this);
         assists_label.setId(400 + id);
-//                System.out.println("Assists: " + playerAssists);
         assists_label.setText(playerAssists);
         assists_label.setBackgroundResource(R.drawable.border);
         assists_label.setPadding(2, 0, 2, 0);
@@ -158,7 +140,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
         TextView points_label = new TextView(this);
         points_label.setId(500 + id);
-//                System.out.println("Points: " + playerPoints);
         points_label.setText(playerPoints);
         points_label.setBackgroundResource(R.drawable.border);
         points_label.setPadding(2, 0, 2, 0);
@@ -167,7 +148,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
         TextView time_label = new TextView(this);
         time_label.setId(600 + id);
-//                System.out.println("TOI: " + playerTOI);
         time_label.setText(playerTOI);
         time_label.setBackgroundResource(R.drawable.border);
         time_label.setPadding(2, 0, 2, 0);
@@ -190,12 +170,10 @@ public class DisplayTeamActivity extends AppCompatActivity {
             this.playerAssists = individualStats.getString("assists");
             this.playerPoints = individualStats.getString("points");
         } catch (JSONException e) {
-            System.out.println("Goalie reached.");
             playerGoals = "0";
             playerAssists = "0";
             playerPoints = "0";
         }
-        System.out.println("Games: " + playerGP + "\nTOI: " + playerTOI + "\nGoals: " + playerGoals + "\nAssists: " + playerAssists + "\nPoints: " + playerPoints);
     }
 
     //inner class to perform network request extending an AsyncTask
@@ -231,10 +209,9 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 fullRoster = object.getJSONArray("teams");
                 JSONObject roster = (JSONObject) fullRoster.get(0);
                 fullRoster = roster.getJSONObject("roster").getJSONArray("roster");
-                execIndividual = false;
                 setRoster(fullRoster);
             } catch (JSONException e) {
-                e.printStackTrace();
+                System.out.println("Found an individual instead");
             }
         }
 
@@ -242,10 +219,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
             RequestHandler requestHandler = new RequestHandler();
-
-            if (requestCode == CODE_POST_REQUEST)
-                return requestHandler.sendPostRequest(url, params);
-
 
             if (requestCode == CODE_GET_REQUEST)
                 return requestHandler.sendGetRequest(url);

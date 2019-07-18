@@ -52,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:paddingHorizontal="15dp"
-        android:background="#FF0000"
+        android:background="@android:color/darker_gray"
         android:text="@string/view_team" />
 
 </RelativeLayout>
