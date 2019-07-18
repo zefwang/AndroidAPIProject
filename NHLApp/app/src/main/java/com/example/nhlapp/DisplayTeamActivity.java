@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,7 +27,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
     TextView teamDivConf;
     TableLayout teamRoster;
     JSONArray fullRoster;
-    JSONObject individualStats;
+    boolean execIndividual;
+    String playerGP, playerGoals, playerAssists, playerPoints, playerTOI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +53,23 @@ public class DisplayTeamActivity extends AppCompatActivity {
             String div_conf = division.get("name") + " || " + conf.get("name");
             teamDivConf.setText(div_conf);
 
-            //Have to access roster of specific team
-            int count = 0;
 
             PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS + "/" + jsonObject.getString("id") + "?expand=team.roster", null, CODE_GET_REQUEST);
             request.execute();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     void setRoster(JSONArray teamRosterArray) {
-
-
         for (int i = 0; i < teamRosterArray.length(); i++) {
+            playerGP = "0";
+            playerGoals = "0";
+            playerAssists = "0";
+            playerPoints = "0";
+            playerTOI = "0";
+
             TableRow tRow = new TableRow(this);
             if (i % 2 != 0)
                 tRow.setBackgroundColor(Color.GRAY);
@@ -85,30 +90,112 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 name_label.setText(name);
                 name_label.setBackgroundResource(R.drawable.border);
                 name_label.setPadding(2, 0, 2, 0);
-
                 tRow.addView(name_label);
+
 
                 PerformNetworkRequest pnr = new PerformNetworkRequest("https://statsapi.web.nhl.com/api/v1/people/" + playerID
                         + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
-                pnr.execute();
+                String result = pnr.execute().get();
 
-                TextView gp_label = new TextView(this);
-                if (individualStats != null) {
-                    String gp = individualStats.getString("games");
-                    gp_label.setId(200 + i);
-                    gp_label.setText(gp);
-                    gp_label.setBackgroundResource(R.drawable.border);
-                    gp_label.setPadding(2, 0, 2, 0);
+                parseIndividualData(result);
 
-                    tRow.addView(gp_label);
+                if (execIndividual) {
+                    tRow = this.addRow(i, tRow);
+                    System.out.println("Executed row properly");
                 }
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             teamRoster.addView(tRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
+    }
+
+    private void parseIndividualData(String result) {
+        try {
+            JSONObject object = new JSONObject(result);
+            JSONObject stats = (JSONObject) object.getJSONArray("stats").get(0);
+            //System.out.println(stats.toString());
+            stats = (JSONObject) stats.getJSONArray("splits").get(0);
+            //System.out.println(stats.toString());
+            JSONObject individualStats = stats.getJSONObject("stat");
+            execIndividual = true;
+            setPlayerInfo(individualStats);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private TableRow addRow(int id, TableRow tRow) {
+        TextView gp_label = new TextView(this);
+        gp_label.setId(200 + id);
+//                System.out.println("GP: " + playerGP);
+        gp_label.setText(playerGP);
+        gp_label.setBackgroundResource(R.drawable.border);
+        gp_label.setPadding(2, 0, 2, 0);
+        gp_label.setGravity(Gravity.CENTER);
+        tRow.addView(gp_label);
+
+        TextView goals_label = new TextView(this);
+        goals_label.setId(300 + id);
+//                System.out.println("Points: " + playerGoals);
+        goals_label.setText(playerGoals);
+        goals_label.setBackgroundResource(R.drawable.border);
+        goals_label.setPadding(2, 0, 2, 0);
+        goals_label.setGravity(Gravity.CENTER);
+        tRow.addView(goals_label);
+
+        TextView assists_label = new TextView(this);
+        assists_label.setId(400 + id);
+//                System.out.println("Assists: " + playerAssists);
+        assists_label.setText(playerAssists);
+        assists_label.setBackgroundResource(R.drawable.border);
+        assists_label.setPadding(2, 0, 2, 0);
+        assists_label.setGravity(Gravity.CENTER);
+        tRow.addView(assists_label);
+
+        TextView points_label = new TextView(this);
+        points_label.setId(500 + id);
+//                System.out.println("Points: " + playerPoints);
+        points_label.setText(playerPoints);
+        points_label.setBackgroundResource(R.drawable.border);
+        points_label.setPadding(2, 0, 2, 0);
+        points_label.setGravity(Gravity.CENTER);
+        tRow.addView(points_label);
+
+        TextView time_label = new TextView(this);
+        time_label.setId(600 + id);
+//                System.out.println("TOI: " + playerTOI);
+        time_label.setText(playerTOI);
+        time_label.setBackgroundResource(R.drawable.border);
+        time_label.setPadding(2, 0, 2, 0);
+        time_label.setGravity(Gravity.CENTER);
+        tRow.addView(time_label);
+
+        return tRow;
+    }
+
+    void setPlayerInfo(JSONObject individualStats) {
+        try {
+            this.playerGP = individualStats.getString("games");
+            this.playerTOI = individualStats.getString("timeOnIcePerGame");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            this.playerGoals = individualStats.getString("goals");
+            this.playerAssists = individualStats.getString("assists");
+            this.playerPoints = individualStats.getString("points");
+        } catch (JSONException e) {
+            System.out.println("Goalie reached.");
+            playerGoals = "0";
+            playerAssists = "0";
+            playerPoints = "0";
+        }
+        System.out.println("Games: " + playerGP + "\nTOI: " + playerTOI + "\nGoals: " + playerGoals + "\nAssists: " + playerAssists + "\nPoints: " + playerPoints);
     }
 
     //inner class to perform network request extending an AsyncTask
@@ -130,12 +217,10 @@ public class DisplayTeamActivity extends AppCompatActivity {
             this.requestCode = requestCode;
         }
 
-        //when the task started displaying a progressbar
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-
 
         //this method will give the response from the request
         @Override
@@ -143,21 +228,11 @@ public class DisplayTeamActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 JSONObject object = new JSONObject(s);
-
-                try {
-                    fullRoster = object.getJSONArray("teams");
-                    JSONObject roster = (JSONObject) fullRoster.get(0);
-                    fullRoster = roster.getJSONObject("roster").getJSONArray("roster");
-                    setRoster(fullRoster);
-                } catch (JSONException e) {
-                }
-
-                try {
-                    individualStats = object.getJSONObject("stats").getJSONObject("splits").getJSONObject("stat");
-                    System.out.println(individualStats.toString());
-                } catch (JSONException e) {
-                }
-
+                fullRoster = object.getJSONArray("teams");
+                JSONObject roster = (JSONObject) fullRoster.get(0);
+                fullRoster = roster.getJSONObject("roster").getJSONArray("roster");
+                execIndividual = false;
+                setRoster(fullRoster);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

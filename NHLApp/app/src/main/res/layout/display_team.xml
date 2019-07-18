@@ -31,7 +31,7 @@
         android:layout_below="@+id/team_div_conf"
         android:layout_centerHorizontal="true"
         android:text="@string/placeholder_team_venue"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="italic" />
 
 
