@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             RequestHandler requestHandler = new RequestHandler();
 
-
             if (requestCode == CODE_GET_REQUEST)
                 return requestHandler.sendGetRequest(url);
 
