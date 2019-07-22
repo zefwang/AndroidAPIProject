@@ -1,5 +1,6 @@
 package com.example.nhlapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -7,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -72,26 +76,41 @@ public class DisplayTeamActivity extends AppCompatActivity {
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             try {
-                TextView name_label = new TextView(this);
+                Button name_button = new Button(this);
 
                 JSONObject nameObj = teamRosterArray.getJSONObject(i);
                 JSONObject personObj = nameObj.getJSONObject("person");
-                String name = personObj.getString("fullName");
-                String playerID = personObj.getString("id");
+                final String name = personObj.getString("fullName");
+                final String playerID = personObj.getString("id");
 
-                name_label.setId(100 + i);
-                name_label.setText(name);
-                name_label.setBackgroundResource(R.drawable.border);
-                name_label.setPadding(2, 0, 2, 0);
-                tRow.addView(name_label);
+                name_button.setId(100+i);
+                name_button.setText(name);
+                name_button.setBackgroundResource(R.drawable.border);
+                name_button.setPadding(2, 0, 2, 0);
+
+
+
 
                 PerformNetworkRequest pnr = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID
                         + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
-                String result = pnr.execute().get();
+                final String result = pnr.execute().get();
 
                 parseIndividualData(result);
 
+                PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID, null, CODE_GET_REQUEST);
+                final String basicInfo = request.execute().get();
 
+                name_button.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View v){
+                        Intent intent = new Intent(DisplayTeamActivity.this, DisplayPerson.class);
+                        intent.putExtra("PLAYER_NAME", name);
+                        intent.putExtra("PLAYER_STATS", result);
+                        intent.putExtra("PLAYER_INFO", basicInfo);
+                        startActivity(intent);
+                    }
+                });
+
+                tRow.addView(name_button);
                 tRow = this.addRow(i, tRow);
 
             } catch (Exception e) {
@@ -114,7 +133,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
     }
 
     private TableRow addRow(int id, TableRow tRow) {
-        TextView gp_label = new TextView(this);
+        Button gp_label = new Button(this);
         gp_label.setId(200 + id);
         gp_label.setText(playerGP);
         gp_label.setBackgroundResource(R.drawable.border);
@@ -122,7 +141,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
         gp_label.setGravity(Gravity.CENTER);
         tRow.addView(gp_label);
 
-        TextView goals_label = new TextView(this);
+        Button goals_label = new Button(this);
         goals_label.setId(300 + id);
         goals_label.setText(playerGoals);
         goals_label.setBackgroundResource(R.drawable.border);
@@ -130,7 +149,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
         goals_label.setGravity(Gravity.CENTER);
         tRow.addView(goals_label);
 
-        TextView assists_label = new TextView(this);
+        Button assists_label = new Button(this);
         assists_label.setId(400 + id);
         assists_label.setText(playerAssists);
         assists_label.setBackgroundResource(R.drawable.border);
@@ -138,7 +157,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
         assists_label.setGravity(Gravity.CENTER);
         tRow.addView(assists_label);
 
-        TextView points_label = new TextView(this);
+        Button points_label = new Button(this);
         points_label.setId(500 + id);
         points_label.setText(playerPoints);
         points_label.setBackgroundResource(R.drawable.border);
@@ -146,7 +165,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
         points_label.setGravity(Gravity.CENTER);
         tRow.addView(points_label);
 
-        TextView time_label = new TextView(this);
+        Button time_label = new Button(this);
         time_label.setId(600 + id);
         time_label.setText(playerTOI);
         time_label.setBackgroundResource(R.drawable.border);
