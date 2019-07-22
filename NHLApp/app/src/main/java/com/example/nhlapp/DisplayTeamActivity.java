@@ -230,7 +230,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 fullRoster = roster.getJSONObject("roster").getJSONArray("roster");
                 setRoster(fullRoster);
             } catch (JSONException e) {
-                System.out.println("Found an individual instead");
             }
         }
 
