@@ -14,8 +14,9 @@
         android:textSize="40sp" />
 
     <LinearLayout
+        android:id="@+id/subHeader"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/playerName">
         <TextView
@@ -32,5 +33,103 @@
             android:text="Position | #00"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollIndividual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subHeader"
+        android:layout_marginTop="5dip"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="horizontal|vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/horiScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:scrollbars="horizontal|vertical">
+
+            <TableLayout
+                android:id="@+id/indivTable"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:id="@+id/indivRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/seasonCol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_season"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/indivGP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_games_played"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/indivGoals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_goals"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/indivAssists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_assists"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/indivPoints"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_total_points"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/indivTOI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:paddingHorizontal="2.5dp"
+                        android:text="@string/placeholder_toi"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
 </RelativeLayout>

@@ -89,8 +89,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 name_button.setPadding(2, 0, 2, 0);
 
 
-
-
                 PerformNetworkRequest pnr = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID
                         + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
                 final String result = pnr.execute().get();
@@ -108,7 +106,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
                         intent.putExtra("PLAYER_INFO", basicInfo);
                         startActivity(intent);
                     }
-                });
+            });
 
                 tRow.addView(name_button);
                 tRow = this.addRow(i, tRow);
