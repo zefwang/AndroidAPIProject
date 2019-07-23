@@ -13,4 +13,5 @@
     <string name="placeholder_assists">Assists</string>
     <string name="placeholder_total_points">Points</string>
     <string name="placeholder_toi">Avg TOI</string>
+    <string name="placeholder_season">Season</string>
 </resources>
