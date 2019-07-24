@@ -26,6 +26,10 @@
         <activity
             android:name=".DisplayPerson"
             android:label="Player Information"></activity>
+
+        <activity
+            android:name=".DisplayDivision"
+            android:label="Division Information"></activity>
     </application>
 
 </manifest>

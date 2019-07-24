@@ -14,4 +14,11 @@
     <string name="placeholder_total_points">Points</string>
     <string name="placeholder_toi">Avg TOI</string>
     <string name="placeholder_season">Season</string>
+    <string name="choose_division">View this Division</string>
+    <string name="placeholder_name_division">Name of Division</string>
+    <string name="placeholder_div_team_name">Team Name</string>
+    <string name="placeholder_wins">Wins</string>
+    <string name="placeholder_losses">Losses</string>
+    <string name="placeholder_points">Points</string>
+    <string name="placeholder_ot_losses">OT Losses</string>
 </resources>

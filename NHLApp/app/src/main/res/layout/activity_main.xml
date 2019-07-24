@@ -55,4 +55,33 @@
         android:background="@android:color/darker_gray"
         android:text="@string/view_team" />
 
+    <TextView
+        android:id="@+id/chooseDivision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_selected_team"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="@string/chooseTeam"/>
+
+    <Spinner
+        android:id="@+id/divisions_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/chooseDivision"
+        android:layout_marginLeft="160dp"/>
+
+    <Button
+        android:id="@+id/view_selected_division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divisions_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:paddingHorizontal="15dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/choose_division" />
+
 </RelativeLayout>
