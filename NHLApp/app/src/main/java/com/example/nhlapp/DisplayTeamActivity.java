@@ -56,7 +56,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
             teamDivConf.setText(div_conf);
 
 
-            PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS + "/" + jsonObject.getString("id") + "?expand=team.roster", null, CODE_GET_REQUEST);
+            PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS + "/"
+                    + jsonObject.getString("id") + "?expand=team.roster", null, CODE_GET_REQUEST);
             request.execute();
 
         } catch (JSONException e) {
@@ -95,7 +96,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
                 parseIndividualData(result);
 
-                PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID, null, CODE_GET_REQUEST);
+                PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID,
+                        null, CODE_GET_REQUEST);
                 final String basicInfo = request.execute().get();
 
                 name_button.setOnClickListener(new View.OnClickListener(){
@@ -115,7 +117,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            teamRoster.addView(tRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            teamRoster.addView(tRow, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }
 

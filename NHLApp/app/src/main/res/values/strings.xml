@@ -20,5 +20,5 @@
     <string name="placeholder_wins">Wins</string>
     <string name="placeholder_losses">Losses</string>
     <string name="placeholder_points">Points</string>
-    <string name="placeholder_ot_losses">OT Losses</string>
+    <string name="placeholder_ot_losses">OTL</string>
 </resources>
