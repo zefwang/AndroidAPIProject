@@ -91,7 +91,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
 
                 PerformNetworkRequest pnr = new PerformNetworkRequest(API.URL_READ_INDIVIDUAL + playerID
-                        + "/stats?stats=statsSingleSeason&season=20182019", null, CODE_GET_REQUEST);
+                        + API.URL_STAT_LINK + "20182019", null, CODE_GET_REQUEST);
                 final String result = pnr.execute().get();
 
                 parseIndividualData(result);
