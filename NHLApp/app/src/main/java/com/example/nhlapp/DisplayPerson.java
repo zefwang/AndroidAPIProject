@@ -62,6 +62,12 @@ public class DisplayPerson extends AppCompatActivity {
     private void setPlayerStats() {
         for (int i = 2019; i > 2004; i--) {
 
+            playerGP = "0";
+            playerTOI = "00:00";
+            playerGoals = "0";
+            playerAssists = "0";
+            playerPoints = "0";
+
             String urlYear = (i-1) + "" + i;
 
             if (i != 2019) {
@@ -69,34 +75,22 @@ public class DisplayPerson extends AppCompatActivity {
                         + playerID + API.URL_STAT_LINK + urlYear, null, CODE_GET_REQUEST);
                 try {
                     playerStats = new JSONObject(pnr.execute().get());
-                }catch (Exception e){
-
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-
-            try{
-                JSONObject stats = (JSONObject) playerStats.getJSONArray("stats").get(0);
-                stats = (JSONObject) stats.getJSONArray("splits").get(0);
-                JSONObject individualStats = stats.getJSONObject("stat");
-                this.playerGP = individualStats.getString("games");
-                this.playerTOI = individualStats.getString("timeOnIcePerGame");
-            } catch (JSONException e){
-                playerGP = "0";
-                playerTOI = "00:00";
             }
 
             try {
                 JSONObject stats = (JSONObject) playerStats.getJSONArray("stats").get(0);
                 stats = (JSONObject) stats.getJSONArray("splits").get(0);
                 JSONObject individualStats = stats.getJSONObject("stat");
+                this.playerGP = individualStats.getString("games");
+                this.playerTOI = individualStats.getString("timeOnIcePerGame");
                 this.playerGoals = individualStats.getString("goals");
                 this.playerAssists = individualStats.getString("assists");
                 this.playerPoints = individualStats.getString("points");
             } catch (JSONException e) {
-                playerGoals = "0";
-                playerAssists = "0";
-                playerPoints = "0";
+                e.printStackTrace();
             }
 
             TableRow tRow = new TableRow(this);
