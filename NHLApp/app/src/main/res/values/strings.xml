@@ -4,7 +4,8 @@
     <string name="app_explanation">Here you can find data about players and teams in the NHL sorted to your preference. \nContinue below to begin.</string>
     <string name="chooseTeam">View a team: </string>
     <string name="view_team">View this team!</string>
-    <string name="placeholder_div_conf">Division || Conference</string>
+    <string name="placeholder_div">Division</string>
+    <string name="placeholder_conf">Conference</string>
     <string name="placeholder_team_name">Team Name</string>
     <string name="placeholder_team_venue">Team Venue</string>
     <string name="placeholder_roster_name">Player Name</string>
@@ -21,4 +22,5 @@
     <string name="placeholder_losses">Losses</string>
     <string name="placeholder_points">Points</string>
     <string name="placeholder_ot_losses">OTL</string>
+    <string name="double_pipes">||</string>
 </resources>

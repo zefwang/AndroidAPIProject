@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private Spinner teamSpinner, divisionSpinner, conferenceSpinner;
     private Button viewTeam, viewDivision;
     List<String> teamNames;
-    JSONArray fullTeamInfo;
+    protected JSONArray fullTeamInfo;
+
+    protected MainActivity(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String findTeams(String divName) {
+    protected String findTeams(String divName) {
         JSONArray teamList = new JSONArray();
         for (int i = 0; i < fullTeamInfo.length(); i++) {
             try {

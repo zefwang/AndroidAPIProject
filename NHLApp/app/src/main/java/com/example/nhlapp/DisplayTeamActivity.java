@@ -25,9 +25,8 @@ import java.util.HashMap;
 public class DisplayTeamActivity extends AppCompatActivity {
     private static final int CODE_GET_REQUEST = 1024;
     JSONObject jsonObject;
-    TextView teamName;
-    TextView teamVenue;
-    TextView teamDivConf;
+    TextView teamName, teamVenue;
+    Button teamDiv, teamConf;
     TableLayout teamRoster;
     JSONArray fullRoster;
     String playerGP, playerGoals, playerAssists, playerPoints, playerTOI;
@@ -39,7 +38,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
 
         teamName = (TextView) findViewById(R.id.team_name);
         teamVenue = (TextView) findViewById(R.id.team_venue);
-        teamDivConf = (TextView) findViewById(R.id.team_div_conf);
+        teamDiv = (Button) findViewById(R.id.team_div);
+        teamConf = (Button) findViewById(R.id.team_conf);
         teamRoster = (TableLayout) findViewById(R.id.rosterTable);
 
         try {
@@ -50,10 +50,26 @@ public class DisplayTeamActivity extends AppCompatActivity {
             String venueStr = venue.get("name") + ", " + venue.get("city");
             teamVenue.setText(venueStr);
 
-            JSONObject division = jsonObject.getJSONObject("division");
+            final JSONObject division = jsonObject.getJSONObject("division");
             JSONObject conf = jsonObject.getJSONObject("conference");
-            String div_conf = division.get("name") + " || " + conf.get("name");
-            teamDivConf.setText(div_conf);
+
+            System.out.println(division.toString());
+
+            final String divName = division.getString("name");
+            teamDiv.setText(division.getString("name"));
+            teamDiv.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Intent intent = new Intent(DisplayTeamActivity.this, DisplayDivision.class);
+                    intent.putExtra("DIVISION_NAME", divName);
+                    MainActivity ma = new MainActivity();
+                    String divTeams = ma.findTeams(divName);
+                    intent.putExtra("DIVISION_TEAMS", divTeams);
+
+                    //TODO:
+                    // Figure out how to putExtra() with the teams in this context
+                }
+            });
+            teamConf.setText(conf.getString("name"));
 
 
             PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS + "/"
@@ -84,7 +100,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 final String name = personObj.getString("fullName");
                 final String playerID = personObj.getString("id");
 
-                name_button.setId(100+i);
+                name_button.setId(100 + i);
                 name_button.setText(name);
                 name_button.setBackgroundResource(R.drawable.border);
                 name_button.setPadding(2, 0, 2, 0);
@@ -100,15 +116,15 @@ public class DisplayTeamActivity extends AppCompatActivity {
                         null, CODE_GET_REQUEST);
                 final String basicInfo = request.execute().get();
 
-                name_button.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
+                name_button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
                         Intent intent = new Intent(DisplayTeamActivity.this, DisplayPerson.class);
                         intent.putExtra("PLAYER_NAME", name);
                         intent.putExtra("PLAYER_STATS", result);
                         intent.putExtra("PLAYER_INFO", basicInfo);
                         startActivity(intent);
                     }
-            });
+                });
 
                 tRow.addView(name_button);
                 tRow = this.addRow(i, tRow);
