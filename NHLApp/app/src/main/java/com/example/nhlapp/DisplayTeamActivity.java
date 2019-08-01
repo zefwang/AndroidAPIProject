@@ -50,10 +50,10 @@ public class DisplayTeamActivity extends AppCompatActivity {
             String venueStr = venue.get("name") + ", " + venue.get("city");
             teamVenue.setText(venueStr);
 
-            final JSONObject division = jsonObject.getJSONObject("division");
+            JSONObject division = jsonObject.getJSONObject("division");
             JSONObject conf = jsonObject.getJSONObject("conference");
 
-            System.out.println(division.toString());
+
 
             final String divName = division.getString("name");
             teamDiv.setText(division.getString("name"));
@@ -61,12 +61,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 public void onClick(View v){
                     Intent intent = new Intent(DisplayTeamActivity.this, DisplayDivision.class);
                     intent.putExtra("DIVISION_NAME", divName);
-                    MainActivity ma = new MainActivity();
-                    String divTeams = ma.findTeams(divName);
-                    intent.putExtra("DIVISION_TEAMS", divTeams);
-
-                    //TODO:
-                    // Figure out how to putExtra() with the teams in this context
+                    intent.putExtra("DIVISION_TEAMS", getIntent().getStringExtra("DIVISION_TEAMS"));
+                    startActivity(intent);
                 }
             });
             teamConf.setText(conf.getString("name"));

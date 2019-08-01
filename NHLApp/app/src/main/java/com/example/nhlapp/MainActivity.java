@@ -23,11 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner teamSpinner, divisionSpinner, conferenceSpinner;
     private Button viewTeam, viewDivision;
     List<String> teamNames;
-    protected JSONArray fullTeamInfo;
-
-    protected MainActivity(){
-
-    }
+    private JSONArray fullTeamInfo;
+    private String divName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         PerformNetworkRequest request = new PerformNetworkRequest(API.URL_READ_TEAMS, null, CODE_GET_REQUEST);
 
-        try{request.execute().get();}catch(Exception e){e.printStackTrace();}
+        try {
+            request.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         viewTeam = (Button) findViewById(R.id.view_selected_team);
         viewTeam.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, DisplayTeamActivity.class);
                 intent.putExtra("TEAM_INFO", findTeam(spinnerSelection));
+                intent.putExtra("DIVISION_TEAMS", findTeams(divName));
                 startActivity(intent);
             }
         });
@@ -66,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 String spinSelect = divisionSpinner.getSelectedItem().toString();
 
                 Intent intent = new Intent(MainActivity.this, DisplayDivision.class);
-                intent.putExtra("DIVISION_TEAMS", findTeams(spinSelect));
                 intent.putExtra("DIVISION_NAME", spinSelect);
+                intent.putExtra("DIVISION_TEAMS", findTeams(spinSelect));
                 startActivity(intent);
             }
         });
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject obj = fullTeamInfo.getJSONObject(i);
                 if (obj.getString("name").equals(teamName)) {
+                    divName = obj.getJSONObject("division").getString("name");
                     return obj.toString();
                 }
             } catch (JSONException e) {
