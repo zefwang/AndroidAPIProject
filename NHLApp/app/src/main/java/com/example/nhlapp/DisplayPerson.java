@@ -90,7 +90,6 @@ public class DisplayPerson extends AppCompatActivity {
                 this.playerAssists = individualStats.getString("assists");
                 this.playerPoints = individualStats.getString("points");
             } catch (JSONException e) {
-                e.printStackTrace();
             }
 
             TableRow tRow = new TableRow(this);

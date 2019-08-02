@@ -43,7 +43,7 @@ public class DisplayDivision extends AppCompatActivity {
                 teamList.add(divTeams.getJSONObject(i));
             }
         } catch (JSONException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         divTable = (TableLayout) findViewById(R.id.divisionTable);
@@ -68,6 +68,7 @@ public class DisplayDivision extends AppCompatActivity {
                     public void onClick(View v){
                         Intent intent = new Intent(DisplayDivision.this, DisplayTeamActivity.class);
                         intent.putExtra("TEAM_INFO", team.toString());
+                        intent.putExtra("DIVISION_TEAMS", divTeams.toString());
                         startActivity(intent);
                     }
                 });

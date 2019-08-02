@@ -53,7 +53,8 @@ public class DisplayTeamActivity extends AppCompatActivity {
             JSONObject division = jsonObject.getJSONObject("division");
             JSONObject conf = jsonObject.getJSONObject("conference");
 
-
+            final String divTeamsStr = getIntent().getStringExtra("DIVISION_TEAMS");
+            System.out.println("------------------THE TEAMS----------------\n" + divTeamsStr);
 
             final String divName = division.getString("name");
             teamDiv.setText(division.getString("name"));
@@ -61,7 +62,7 @@ public class DisplayTeamActivity extends AppCompatActivity {
                 public void onClick(View v){
                     Intent intent = new Intent(DisplayTeamActivity.this, DisplayDivision.class);
                     intent.putExtra("DIVISION_NAME", divName);
-                    intent.putExtra("DIVISION_TEAMS", getIntent().getStringExtra("DIVISION_TEAMS"));
+                    intent.putExtra("DIVISION_TEAMS", divTeamsStr);
                     startActivity(intent);
                 }
             });
