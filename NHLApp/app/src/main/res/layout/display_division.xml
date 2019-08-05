@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:text="@string/placeholder_name_division"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="40sp"
         android:textStyle="bold" />
 

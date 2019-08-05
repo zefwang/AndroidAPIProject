@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NHLApp</string>
+    <string name="app_name">NHL Info App</string>
     <string name="app_intro">Welcome to my app!</string>
     <string name="app_explanation">Here you can find data about players and teams in the NHL sorted to your preference. \nContinue below to begin.</string>
     <string name="chooseTeam">View a team: </string>

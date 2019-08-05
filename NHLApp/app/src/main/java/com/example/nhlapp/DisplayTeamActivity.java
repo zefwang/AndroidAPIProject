@@ -54,7 +54,6 @@ public class DisplayTeamActivity extends AppCompatActivity {
             JSONObject conf = jsonObject.getJSONObject("conference");
 
             final String divTeamsStr = getIntent().getStringExtra("DIVISION_TEAMS");
-            System.out.println("------------------THE TEAMS----------------\n" + divTeamsStr);
 
             final String divName = division.getString("name");
             teamDiv.setText(division.getString("name"));

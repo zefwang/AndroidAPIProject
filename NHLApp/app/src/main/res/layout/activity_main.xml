@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_background"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/introText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp"
-        android:textColor="@android:color/holo_blue_dark"
         android:text="@string/app_intro"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/explanationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/introText"
-        android:textSize="25sp"
-        android:textAlignment="center"
-        android:text="@string/app_explanation"
-        android:textColor="@android:color/holo_blue_dark"
+        android:layout_centerHorizontal="true"
         android:paddingHorizontal="10dp"
         android:paddingBottom="10dp"
-        />
+        android:text="@string/app_explanation"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/chooseTeam"
@@ -33,16 +34,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/explanationText"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:text="@string/chooseTeam"
         android:textColor="@android:color/holo_blue_light"
-        android:text="@string/chooseTeam"/>
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/teams_spinner"
+        style="@style/Widget.AppCompat.Spinner.DropDown.ActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/chooseTeam"
-        android:layout_marginLeft="160dp"/>
+        android:layout_marginLeft="160dp"
+        android:longClickable="true"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:id="@+id/view_selected_team"
@@ -51,8 +55,8 @@
         android:layout_below="@+id/teams_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:background="@android:color/holo_blue_light"
         android:paddingHorizontal="15dp"
-        android:background="@android:color/darker_gray"
         android:text="@string/view_team" />
 
     <TextView
@@ -60,18 +64,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_selected_team"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:layout_marginTop="25dp"
+        android:text="@string/chooseTeam"
         android:textColor="@android:color/holo_blue_dark"
-        android:text="@string/chooseTeam"/>
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/divisions_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/chooseDivision"
-        android:layout_marginLeft="160dp"/>
+        android:layout_marginLeft="160dp" />
 
     <Button
         android:id="@+id/view_selected_division"
@@ -80,8 +84,8 @@
         android:layout_below="@+id/divisions_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:background="@android:color/holo_blue_dark"
         android:paddingHorizontal="15dp"
-        android:background="@android:color/darker_gray"
         android:text="@string/choose_division" />
 
 </RelativeLayout>
